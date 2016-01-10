@@ -1,82 +1,93 @@
+var myApp = angular.module("myModule", []);
 
-var myApp = angular
-    .module("myModule", [])
-    .filter("gender", function(){
-        return function(gender){
-            switch (gender) {
-                case 0:
-                    return "Female";
-                case 1:
-                    return "Male";
-                default :
-                    return "Not Disclosed"
-            }
+myApp.filter("gender", function () {
+    return function (gender) {
+        switch (gender) {
+            case 0:
+                return "Female";
+            case 1:
+                return "Male";
+            default :
+                return "Not Disclosed"
         }
-    })
-    .controller("myController", function($scope, customerService){
-        $scope.customers = customerService.getCustomers();
+    }
+});
 
-        $scope.rowLimit = 4;
-        $scope.sortedColumn = "name";
+myApp.controller("myController", function ($scope, customerService) {
+    $scope.customers = customerService.getCustomers();
 
-        $scope.incrementLikes = function(customer){
-            customer.likes++;
-        };
+    $scope.rowLimit = 4;
+    $scope.sortedColumn = "name";
 
-        $scope.incrementDislikes = function(customer){
-            customer.dislikes++;
-        };
+    $scope.incrementLikes = function (customer) {
+        customer.likes++;
+    };
+
+    $scope.incrementDislikes = function (customer) {
+        customer.dislikes++;
+    };
 
 });
 
 
-myApp.factory('customerService', function(){
+myApp.factory('customerService', function (Customer) {
     return {
-        getCustomers :function(){
+        getCustomers: function () {
             var customers = [
-                {
-                    name : "Rezwan",
-                    "gender": 1,
-                    phone: "01917376161",
-                    address : "Mirpur",
-                    "birthday": new Date("February 25, 1992"),
-                    "foods": ["chicken", "beef"],
-                    "likes": 0,
-                    "dislikes": 0
-
-                },
-                {
-                    name : "Mourin",
-                    "gender": 0,
-                    phone: "01739158129",
-                    address : "Banasree",
-                    "birthday": new Date("November 14, 1992"),
-                    "foods": ["pasta", "vegetable", "chocolates"],
-                    "likes": 0,
-                    "dislikes": 0
-                },
-                {
-                    name : "Rafiqul Islam",
-                    "gender": 1,
-                    phone: "01715056917",
-                    address : "Rupnagar",
-                    "birthday": new Date("January 20, 1954"),
-                    "foods": ["fish", "vegetable"],
-                    "likes": 0,
-                    "dislikes": 0
-                },
-                {
-                    name : "Rushmila",
-                    "gender": 0,
-                    phone: "01727242089",
-                    address : "Australia",
-                    "birthday": new Date("January 14, 1984"),
-                    "foods": ["chicken", "vegetable"],
-                    "likes": 0,
-                    "dislikes": 0
-                }
+                new Customer("Rezwan", 1, "01917376161", "Mirpur",
+                    new Date("February 25, 1992"), ["chicken", "beef"], 0, 0
+                ),
+                new Customer ("Mourin", 0, "01739158129", "Banasree",
+                    new Date("November 14, 1992"), ["pasta", "vegetable", "chocolates"], 0, 0
+                ),
+                new Customer("Rafiqul Islam", 1, "01715056917", "Rupnagar",
+                    new Date("January 20, 1954"), ["fish", "vegetable"], 0, 0
+                ),
+                new Customer("Rushmila", 0, "01727242089", "Australia",
+                    new Date("January 14, 1984"), ["chicken", "vegetable"], 0, 0
+                )
             ];
             return customers;
         }
+    }
+});
+
+myApp.factory('Customer', function(){
+
+    function Customer(name, gender, phone, address, birthday, foods, likes, dislikes){
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.birthday = birthday;
+        this.foods = foods;
+        this.likes = likes;
+        this.dislikes = dislikes;
+    }
+
+    Customer.build = function(data){
+        return new Customer(
+            data.name,
+            data.gender,
+            data.phone,
+            data.address,
+            data.birthday,
+            data.foods,
+            data.likes,
+            data.dislikes
+        );
+    };
+
+    return Customer;
+});
+
+myApp.factory('Favourite', function(){
+
+    function Favourite(likes, dislikes){
+       this.likes = likes;
+       this.dislikes = dislikes;
+    }
+    Favourite.build = function(data){
+        return new Favourite(data.likes, data.dislikes);
     }
 });
