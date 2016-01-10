@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div ng-controller="myController" style="width: 100%">
+    <div ng-controller="customerController" style="width: 100%">
 
         Rows to Display : <input type="number" step="1" min="0" max="4" ng-model="rowLimit">
         <br><br><br>
@@ -18,8 +18,8 @@
             <option value="name">Name</option>
             <option value="foods">Foods</option>
             <option value="birthday">Birthday</option>
-            <option value="likes">Likes</option>
-            <option value="dislikes">DisLikes</option>
+            <option value="favourite.likes">Likes</option>
+            <option value="favourite.dislikes">DisLikes</option>
         </select>
         <br><br><br>
 
@@ -60,8 +60,8 @@
                             </li>
                         </ul>
                     </td>
-                    <td>{{customer.likes}}</td>
-                    <td>{{customer.dislikes}}</td>
+                    <td>{{customer.favourite.likes}}</td>
+                    <td>{{customer.favourite.dislikes}}</td>
                     <td>
                         <!- This dynamically binds data to controller also. This is an example of two way binding ->
                         <input type="button" value="like" ng-click="incrementLikes(customer)">

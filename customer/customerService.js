@@ -1,7 +1,7 @@
-myApp.factory('customerService', function(){
+app.factory('customerService', function(){
     return {
-        getCustomers :function(){
-            var customers = [
+        customers :function(){
+            return [
                 {
                     name : "Rezwan",
                     "gender": 1,
@@ -44,7 +44,6 @@ myApp.factory('customerService', function(){
                     "dislikes": 0
                 }
             ];
-            return customers;
         }
     }
 });

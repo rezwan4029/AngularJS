@@ -1,5 +1,7 @@
 var myApp = angular.module("myModule", []);
 
+var controllers = {};
+
 myApp.filter("gender", function () {
     return function (gender) {
         switch (gender) {
@@ -13,38 +15,38 @@ myApp.filter("gender", function () {
     }
 });
 
-myApp.controller("myController", function ($scope, customerService) {
-    $scope.customers = customerService.getCustomers();
+controllers.customerController = function ($scope, customerService) {
 
+    $scope.customers = customerService.getCustomers();
     $scope.rowLimit = 4;
     $scope.sortedColumn = "name";
 
     $scope.incrementLikes = function (customer) {
-        customer.likes++;
+        customer.favourite.likes++;
     };
 
     $scope.incrementDislikes = function (customer) {
-        customer.dislikes++;
+        customer.favourite.dislikes++;
     };
 
-});
+}
 
 
-myApp.factory('customerService', function (Customer) {
+myApp.factory('customerService', function (Customer, Favourite) {
     return {
         getCustomers: function () {
             var customers = [
                 new Customer("Rezwan", 1, "01917376161", "Mirpur",
-                    new Date("February 25, 1992"), ["chicken", "beef"], 0, 0
+                    new Date("February 25, 1992"), ["chicken", "beef"], new Favourite(0, 0)
                 ),
                 new Customer ("Mourin", 0, "01739158129", "Banasree",
-                    new Date("November 14, 1992"), ["pasta", "vegetable", "chocolates"], 0, 0
+                    new Date("November 14, 1992"), ["pasta", "vegetable", "chocolates"], new Favourite(0, 0)
                 ),
                 new Customer("Rafiqul Islam", 1, "01715056917", "Rupnagar",
-                    new Date("January 20, 1954"), ["fish", "vegetable"], 0, 0
+                    new Date("January 20, 1954"), ["fish", "vegetable"], new Favourite(0, 0)
                 ),
                 new Customer("Rushmila", 0, "01727242089", "Australia",
-                    new Date("January 14, 1984"), ["chicken", "vegetable"], 0, 0
+                    new Date("January 14, 1984"), ["chicken", "vegetable"], new Favourite(0, 0)
                 )
             ];
             return customers;
@@ -54,15 +56,14 @@ myApp.factory('customerService', function (Customer) {
 
 myApp.factory('Customer', function(){
 
-    function Customer(name, gender, phone, address, birthday, foods, likes, dislikes){
+    function Customer(name, gender, phone, address, birthday, foods, favourite){
         this.name = name;
         this.gender = gender;
         this.phone = phone;
         this.address = address;
         this.birthday = birthday;
         this.foods = foods;
-        this.likes = likes;
-        this.dislikes = dislikes;
+        this.favourite = favourite;
     }
 
     Customer.build = function(data){
@@ -73,8 +74,7 @@ myApp.factory('Customer', function(){
             data.address,
             data.birthday,
             data.foods,
-            data.likes,
-            data.dislikes
+            data.favourite
         );
     };
 
@@ -89,5 +89,8 @@ myApp.factory('Favourite', function(){
     }
     Favourite.build = function(data){
         return new Favourite(data.likes, data.dislikes);
-    }
+    };
+    return Favourite;
 });
+
+myApp.controller(controllers);
