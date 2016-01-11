@@ -1,8 +1,9 @@
-var myApp = angular.module("customer");
+var myApp = angular.module("Customer");
 
 var controllers = {};
 
 myApp.filter("gender", function () {
+    'use strict';
     return function (gender) {
         switch (gender) {
             case 0:
@@ -19,11 +20,11 @@ myApp.filter("gender", function () {
 * here `customerController` is the name of the Controller
 */
 controllers.customerController = function ($scope, CustomerService) {
-
+    'use strict';
     $scope.customers = CustomerService.getCustomers();
-    $scope.rowLimit = 4;
+    $scope.rowLimit = 5;
     $scope.sortedColumn = "name";
-
+    console.log($scope.customers);
     $scope.incrementLikes = function (customer) {
         customer.favourite.likes++;
     };

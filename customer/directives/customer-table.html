@@ -1,0 +1,43 @@
+<table border="2" width="90%" >
+    <thead>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Birthday</th>
+    <th>Foods</th>
+    <th>Likes Count</th>
+    <th>Dislikes Count</th>
+    <th>Like / Dislike</th>
+    </thead>
+    <tbody lim>
+    <!- Filtering :
+    1) looping in list
+    2) maximum limit of data to show to a user, `limitTo` is filtering ng key, `rowLimit` in controller
+    3) sort order by which column, `sortedColumn` comes from controller
+    4) angular search filter process
+    ->
+    <tr ng-repeat ="customer in customers | limitTo : rowLimit | orderBy : sortedColumn | filter:searchText">
+        <td> {{customer.name | uppercase }} </td>
+        <!- This is my Custom written filter `gender` ->
+        <td> {{customer.gender | gender }} </td>
+        <td> {{customer.phone}} </td>
+        <td> {{customer.address}} </td>
+        <td> {{customer.birthday | date:"dd / M / yyyy"}}</td>
+        <td>
+            <ul>
+                <li ng-repeat="food in customer.foods">
+                    {{food}}
+                </li>
+            </ul>
+        </td>
+        <td>{{customer.favourite.likes}}</td>
+        <td>{{customer.favourite.dislikes}}</td>
+        <td>
+            <!- This dynamically binds data to controller also. This is an example of two way binding ->
+            <input type="button" value="like" ng-click="incrementLikes(customer)">
+            <input type="button" value="dislike" ng-click="incrementDislikes(customer)">
+        </td>
+    </tr>
+    </tbody>
+</table>

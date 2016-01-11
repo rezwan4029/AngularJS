@@ -1,5 +1,5 @@
-angular.module("customer").factory('Favourite', function(){
-
+angular.module("Customer").factory('Favourite', function(){
+    'use strict';
     function Favourite(likes, dislikes){
         this.likes = likes;
         this.dislikes = dislikes;
