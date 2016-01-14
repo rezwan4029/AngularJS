@@ -33,6 +33,28 @@ controllers.customerController = function ($scope, CustomerService) {
         customer.favourite.dislikes++;
     };
 
+    $scope.customerDetails = function (customer) {
+        var ans = CustomerService.getDetails(customer);
+        $scope.currentCustomer = ans;
+        return ans;
+    }
 };
+
+
+myApp.directive('customertable', function () {
+        'use strict';
+        return {
+            restrict : 'E',
+            templateUrl : 'customer-table.html',
+            //replace: true,
+            //transclude: true,
+            scope : {
+                customer : '='
+            },
+            link: function (scope, element, attrs) {
+                scope.customer = attrs(currentOptionElement)
+            }
+        };
+    });
 
 myApp.controller(controllers);

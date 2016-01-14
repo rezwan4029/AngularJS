@@ -1,7 +1,7 @@
 angular.module('Customer', []);
 
 //angular.module("AngularApp.services", []);
-//angular.module("AngularApp.directives", []);
+//angular.module("customer.directives", []);
 //angular.module("AngularApp.filters", []);
 //
 //var angularApp = angular.module('AngularApp',[

@@ -17,6 +17,9 @@ angular.module("Customer").service('CustomerService', function (Customer, Favour
                 )
             ];
             return customers;
+        },
+        getDetails: function (customer) {
+            return customer.name + " [ "  + customer.phone + " ] " + "{ " + customer.address + " }";
         }
     }
 });
