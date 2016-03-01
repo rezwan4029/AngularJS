@@ -1,15 +1,18 @@
-angular.module('Customer')
+angular.module('customer.directives')
     .directive('customerTable', function () {
         'use strict';
+        console.log('ads');
         return {
             restrict: 'E',
-            templateUrl: 'customer-table.html',
-            //replace: true,
-            //transclude: true,
+            templateUrl: 'directives/customer-table.html',
+            replace: true,
+            transclude: true,
             scope: {
-                customer: null
+                customer: '='
             },
             link: function (scope, element, attrs) {
+                console.log('a: ' + scope);
+                console.log('b : '+ $scope);
                 scope.placeholder = attrs.placeholder || 'Search...';
             }
         };
